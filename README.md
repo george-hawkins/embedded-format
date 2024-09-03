@@ -37,3 +37,23 @@ $ cmake --build build
 $ ls -Flas build/experiment 
 2472 -rwxrwxr-x 1 ghawkins ghawkins 2528704 Sep  3 21:37 build/experiment*
 ```
+
+With nothing but `std::puts("3")` and `MinSizeRel`:
+
+```
+$ ls -Flas build/experiment 
+880 -rwxrwxr-x 1 ghawkins ghawkins 900352 Sep  3 21:44 build/experiment*
+```
+
+Adding `-DFMT_STATIC_THOUSANDS_SEPARATOR='.'` etc. (see this issues [comment](https://github.com/fmtlib/fmt/issues/3547#issuecomment-1649878688)) did reduce things by 12KiB but relative to its at least 1.5MiB cost that doesn't seem significant:
+
+```
+$ cmake -DCMAKE_BUILD_TYPE=MinSizeRel -S . -B build
+ghawkins@localhost:~/git/embedded-format$ cmake --build build --verbose
+ghawkins@localhost:~/git/embedded-format$ ls -Flas build/experiment 
+2428 -rwxrwxr-x 1 ghawkins ghawkins 2483520 Sep  3 22:03 build/experiment*
+```
+
+Note: the `--verbose` above causes it to show all the `g++` steps and shows that the `-D` definitions are used where expected.
+
+TODO: see how they affect the output of the preprocessor.

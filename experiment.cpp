@@ -6,6 +6,6 @@ using Width = fluent::NamedType<int, struct WidthTag>;
 
 int main() {
     const Width w{3};
-
+ 
     fmt::print("Hello, world! {}\n", w.get());
 }

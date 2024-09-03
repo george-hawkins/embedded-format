@@ -22,6 +22,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(fmt)
 
+target_compile_definitions(
+    fmt
+    PUBLIC FMT_STATIC_THOUSANDS_SEPARATOR='.'
+    PUBLIC FMT_USE_FLOAT=0
+    PUBLIC FMT_USE_DOUBLE=0
+    PUBLIC FMT_USE_LONG_DOUBLE=0
+    PUBLIC FMT_USE_FLOAT128=0
+)
+
+
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 set(BUILD_SHARED_LIBS OFF)
 set(CMAKE_EXE_LINKER_FLAGS "-static")
